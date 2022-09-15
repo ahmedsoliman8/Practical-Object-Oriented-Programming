@@ -3,6 +3,7 @@
 
 use Todo\Models\Task;
 use Todo\Storage\MySqlDatabaseTaskStorage;
+use Todo\TaskManager;
 
 require 'vendor/autoload.php';
 
@@ -12,23 +13,39 @@ try {
 
     $storage = new MySqlDatabaseTaskStorage($db);
 
-    /*$task = new Task();
+    /* $task = new Task();
 
-    $task->setDescription("Learn Css");
-    $task->setDue(new DateTime('+ 10 minutes'));
+      $task->setDescription("Learn Database");
+      $task->setDue(new DateTime('+ 10 minutes'));
 
-    $taskId = $storage->store($task);
-*/
+      $taskId = $storage->store($task);
 
-    $task = $storage->get(2);
+      $task = $storage->get(10);
 
-    $task->setDescription('learn c++ c++');
-    $task->setComplete();
-    $task->setDue(new DateTime('+1 year'));
+      $task->setDescription('learn MySql');
+      $task->setComplete(true);
+      $task->setDue(new DateTime('+2 year'));
 
 
-   $task= $storage->update($task);
-    var_dump($task);
+     $task= $storage->update($task);
+      var_dump($task);
+
+  */
+
+    $manager = new TaskManager($storage);
+
+    $task = new Task();
+
+
+
+    $task = $manager->getTask(11);
+
+    $task->setComplete(false);
+    $task->setDescription('Learn Linux Linux');
+
+    $taskUpdated=$manager->updateTask($task);
+    var_dump($taskUpdated);
+
 
 } catch (PDOException $e) {
 
